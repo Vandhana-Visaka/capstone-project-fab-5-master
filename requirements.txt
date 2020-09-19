@@ -1,0 +1,11 @@
+asgiref==3.2.10
+Django==3.0.7
+joblib==0.16.0
+mysqlclient==1.4.6
+numpy==1.19.1
+Pillow==7.1.2
+pytz==2020.1
+scikit-learn==0.23.1
+scipy==1.5.2
+sqlparse==0.3.1
+threadpoolctl==2.1.0

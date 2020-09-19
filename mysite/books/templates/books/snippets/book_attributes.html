@@ -1,0 +1,24 @@
+<div class="row">
+  <div class="column">
+    <figure class="figure">
+      {% if 'http' in book.cover.url %}
+        <img src="{{ book.cover }}" class="figure-img img-fluid rounded" alt="...">
+      {% else %}
+        <img src="{{ book.cover.url }}" class="figure-img img-fluid rounded" alt="...">
+      {% endif %}
+    </figure>
+  </div>
+
+  <div class="column">
+    <div style="width: 300px; word-break: break-all; word-wrap: break-word;">
+      Genres: {{book.genres}}<br/>
+      Authors: {{book.authors}}<br/>
+    </div>
+      Publisher: {{book.publisher}}<br/>
+      Publication Date: {{book.publication_date}}<br/>
+      Language: {{book.language}}<br/>
+      Country: {{book.country}}<br/>
+      Pages: {{book.num_page}}<br/>
+      ISBN: {{book.ISBN}}<br/>
+  </div>
+</div>

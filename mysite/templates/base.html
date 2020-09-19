@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Read Recommend by Fab5</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    {% include 'snippets/header.html' %}
+</head>
+
+<body>
+    <style type="text/css">
+        .main{
+
+        }
+        .extra {
+          /* Background styles */
+          background-image: url(https://img.wallpapersafari.com/desktop/1600/900/12/21/M4fUQY.jpg);
+          background-opacity: 0.10;
+          background-size: cover;
+          background-position: center center;
+          background-repeat: repeat-y;
+          background-attachment: fixed;
+       }
+    </style>
+    <div class="extra">
+        {% block content %}
+        {% endblock content %}
+    </div>
+</body>
+
+<footer>
+  {% include 'snippets/footer.html' %}
+</footer>
+
+</html>

@@ -1,0 +1,43 @@
+<ul class="nav nav-tabs" id="myTab" role="tablist">
+  <li class="nav-item">
+    <a class="nav-link active" id="recommend-mode-1-tab" data-toggle="tab"  href="#recommend-mode-1" role="tab" aria-controls="recommend-mode-1" aria-selected="true">Popular Books</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" id="similar_user_read-tab" data-toggle="tab" href="#similar_user_read" role="tab" aria-controls="similar_user_read" aria-selected="false">Similar User Read</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" id="recommend-mode-3-tab" data-toggle="tab" href="#recommend-mode-3" role="tab" aria-controls="recommend-mode-3" aria-selected="false">Great Picks</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" id="Fiction-tab" data-toggle="tab" href="#Fiction" role="tab" aria-controls="Fiction" aria-selected="false">Fiction</a>
+  </li>
+</ul>
+
+<div class="tab-content">
+  <div class="tab-pane active" id="recommend-mode-1" role="tabpanel" aria-labelledby="recommend-mode-1-tab">
+    {% if recommedation_bname|length %}
+    {% include 'personal/snippets/new_recommend_book_personal.html' %}
+    {% endif %}
+  </div>
+  <div class="tab-pane" id="similar_user_read" role="tabpanel" aria-labelledby="similar_user_read-tab">
+    {% if similar_user_books|length %}
+    {% include 'personal/snippets/similar_user_read.html' %}
+    {% endif %}
+  </div>
+  <div class="tab-pane" id="recommend-mode-3" role="tabpanel" aria-labelledby="recommend-mode-3-tab">
+    {% if Thriller|length %}
+    {% include 'personal/snippets/recmode2.html' %}
+    {% endif %}
+  </div>
+  <div class="tab-pane" id="Fiction" role="tabpanel" aria-labelledby="Fiction-tab">
+    {% if Fiction|length %}
+    {% include 'personal/snippets/recmode.html' %}
+    {% endif %}
+  </div>
+</div>
+
+<script>
+  $(function () {
+    $('#myTab li:last-child a').tab('show')
+  })
+</script>

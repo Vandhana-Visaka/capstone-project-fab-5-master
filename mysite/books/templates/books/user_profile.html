@@ -1,0 +1,233 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<style type="text/css">
+    .userInfoBox{
+        margin-top: 10px;
+        padding: 10px;
+        font-family: "Lucinda Grande", "Lucinda Sans Unicode", Helvetica, Arial, Verdana, sans-serif;
+    }
+    .userProfileName{
+        border-bottom: 1px solid #d8d8d8;
+        float: left;
+        font-style: normal;
+        font-size: 24px;
+        line-height: 1.3;
+        margin: 0;
+        margin-bottom: 5px;
+        padding: 1px;
+        width: 910px;
+    }
+    .infoBoxRowTitle{
+        font-size: 16px;
+        color: #382110;
+        font-weight: bold;
+        width: 100%;
+        float: left;
+        margin: 1px;
+        padding: 1px;
+    }
+    .infoBoxRowItem{
+        font-size: 16px;
+        float: left;
+        width: 100%;
+    }
+    .clear{
+        clear: both;
+        display: block;
+        font-size: 1px;
+        line-height: 2px;
+    }
+    .collectionTitleBox{
+        color: #181818;
+        font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif;
+        line-height: 18px;
+        padding: 0;
+    }
+    .collectionContent{
+        color: #181818;
+        font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif;
+        line-height: 18px;
+        width: 450px;
+    }
+    .collectionInfo{
+        font-size: 16px;
+        float: left;
+        max-width: 100%;
+        width: auto;
+        padding: 3px;
+        margin: 1px;
+        margin-bottom: 3px;
+    }
+
+</style>
+
+<div id="main_area" class="container">
+{#    User Profile#}
+    <div class="userInfoBox">
+        <h2 class="userProfileName">{{ user.username }}'s Goal in this Month</h2>
+        <div class="clear"></div>
+        {% if uid == UID_id %}
+          <div class="infoBoxRowTitle">Reading Goal</div>
+            {% if numBooks %}
+                {% if numBooks < 2 %}
+                    <div class="infoBoxRowItem">{{ numBooks }} Book</div>
+                {% else %}
+                    <div class="infoBoxRowItem">{{ numBooks }} Books</div>
+                {% endif %}
+            {% else %}
+                <div class="infoBoxRowItem">No goals have been set.</div>
+            {% endif %}
+            <div class="clear"></div>
+          <div class="infoBoxRowTitle">Number of Finished</div>
+            {% if numFinished %}
+                {% if numFinished > 1 %}
+                    <div class="infoBoxRowItem">{{ numFinished }} Books</div>
+                {% else %}
+                    <div class="infoBoxRowItem">{{ numFinished }} Book</div>
+                {% endif %}
+            {% endif %}
+            <div class="clear"></div>
+          <div class="infoBoxRowTitle">Finished Books</div>
+            {% if finished_books %}
+                <table class="table" id="books_table"><thead><tr>
+                  <th>Title</th>
+                  <th>Author</th>
+                  <th>Genres</th>
+                  <th>Language</th>
+                  <th>Country</th>
+                </tr></thead>
+                <tbody>
+                {% for book in finished_books %}
+                  <tr>
+                    <td><a href="{% url 'book' isbn=book.ISBN %}">{{book.title}}</a></td>
+                    <td>{{ book.authors }}</td>
+                    <td>{{ book.genres }}</td>
+                    <td>{{ book.language }}</td>
+                    <td>{{ book.country }}</td>
+                  </tr>
+                {% endfor %}
+                </tbody>
+                </table>
+            {% else %}
+                <div class="infoBoxRowItem">No Book</div>
+            {% endif %}
+        {% endif %}
+    </div>
+
+    <div class="clear"></div>
+{#    User Collections#}
+    <div class="userInfoBox">
+      <div class="collectionTitleBox">
+          <h2 class="userProfileName">{{ user.username }}'s Bookshelves</h2>
+      </div>
+      <div class="collectionContent">
+        {% if collections %}
+          {% for collection in collections %}
+              <div class="row collectionInfo">
+                  <a href="{% url 'collection' collection_id=collection.id %}">{{collection}}</a>
+              </div>
+          {% endfor %}
+        {% else %}
+            <div class="infoBoxRowItem">No Collection</div>
+        {% endif %}
+      </div>
+    </div>
+
+    <div class="clear"></div>
+{#    Recently Read#}
+    <div class="userInfoBox">
+        <h2 class="userProfileName">{{ user.username }}'s Recently Read</h2>
+        <div class="clear"></div>
+        {% if recent_read %}
+            <table class="table" id="books_table">
+              <thead>
+                <tr>
+                  <th>Title</th>
+                  <th>Author</th>
+                  <th>Genres</th>
+                  <th>Language</th>
+                  <th>Country</th>
+                </tr>
+              </thead>
+              <tbody>
+              {% for book in recent_read %}
+                  <tr>
+                    <td><a href="{% url 'book' isbn=book.ISBN %}">{{book.title}}</a></td>
+                    <td>{{ book.authors }}</td>
+                    <td>{{ book.genres }}</td>
+                    <td>{{ book.language }}</td>
+                    <td>{{ book.country }}</td>
+                  </tr>
+              {% endfor %}
+              </tbody>
+            </table>
+        {% else %}
+          <div class="infoBoxRowItem">No Book</div>
+        {% endif %}
+    </div>
+    <div class="clear"></div>
+{#    Currently Reading#}
+    <div class="userInfoBox">
+        <h2 class="userProfileName">{{ user.username }}'s Currently Reading</h2>
+        <div class="clear"></div>
+        {% if current_reading %}
+            <table class="table" id="books_table">
+              <thead>
+                <tr>
+                  <th>Title</th>
+                  <th>Author</th>
+                  <th>Genres</th>
+                  <th>Language</th>
+                  <th>Country</th>
+                </tr>
+              </thead>
+              <tbody>
+              {% for book in current_reading %}
+                  <tr>
+                    <td><a href="{% url 'book' isbn=book.ISBN %}">{{book.title}}</a></td>
+                    <td>{{ book.authors }}</td>
+                    <td>{{ book.genres }}</td>
+                    <td>{{ book.language }}</td>
+                    <td>{{ book.country }}</td>
+                  </tr>
+              {% endfor %}
+              </tbody>
+            </table>
+        {% else %}
+          <div class="infoBoxRowItem">No Book</div>
+        {% endif %}
+    </div>
+    <div class="clear"></div>
+    <div class="userInfoBox">
+        <h2 class="userProfileName">{{ user.username }}'s Want to Read</h2>
+        <div class="clear"></div>
+        {% if want_read %}
+            <table class="table" id="books_table">
+              <thead>
+                <tr>
+                  <th>Title</th>
+                  <th>Author</th>
+                  <th>Genres</th>
+                  <th>Language</th>
+                  <th>Country</th>
+                </tr>
+              </thead>
+              <tbody>
+              {% for book in want_read %}
+                  <tr>
+                    <td><a href="{% url 'book' isbn=book.ISBN %}">{{book.title}}</a></td>
+                    <td>{{ book.authors }}</td>
+                    <td>{{ book.genres }}</td>
+                    <td>{{ book.language }}</td>
+                    <td>{{ book.country }}</td>
+                  </tr>
+              {% endfor %}
+              </tbody>
+            </table>
+        {% else %}
+          <div class="infoBoxRowItem">No Book</div>
+        {% endif %}
+    </div>
+</div>
+{% endblock content %}

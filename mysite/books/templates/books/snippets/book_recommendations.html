@@ -1,0 +1,27 @@
+<ul class="nav nav-tabs" id="myTab" role="tablist">
+  <li class="nav-item">
+    <a class="nav-link" id="similar_user_read-tab" data-toggle="tab" href="#similar_user_read" role="tab" aria-controls="similar_user_read" aria-selected="false">Similar User Read</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" id="also_read-tab" data-toggle="tab" href="#also_read" role="tab" aria-controls="also_read" aria-selected="false">Also Read</a>
+  </li>
+</ul>
+
+<div class="tab-content">
+  <div class="tab-pane" id="similar_user_read" role="tabpanel" aria-labelledby="similar_user_read-tab">
+    {% if uid and similar_user_books|length %}
+    {% include 'books/snippets/similar_user_recommend_book.html' %}
+    {% endif %}
+  </div>
+  <div class="tab-pane" id="also_read" role="tabpanel" aria-labelledby="also_read-tab">
+    {% if uid and same_collection_books|length %}
+    {% include 'books/snippets/new_recommend_book.html' %}
+    {% endif %}
+  </div>
+</div>
+
+<script>
+  $(function () {
+    $('#myTab li:last-child a').tab('show')
+  })
+</script>

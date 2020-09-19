@@ -1,0 +1,83 @@
+<button class="btn btn-block btn-success" id="update_btn_{{collection.id}}">Edit</button>
+<button class="btn btn-block btn-success" id="save_all_btn_{{collection.id}}" style="display:none;margin-top:0px">Save</button>
+
+<script>
+    function pageReload() {
+        window.location.reload();
+    }
+    $("#update_btn_{{collection.id}}").click(function(){
+        $("#update_btn_{{collection.id}}").hide();
+        $("#save_all_btn_{{collection.id}}").show();
+        var this_html = $(".editable_{{collection.id}}");
+        $(".editable_{{collection.id}}").each(function(){
+            var value = $(this).text().trim();
+            var html_data="<input type='text' class='form-control input_data_{{collection.id}}' value='"+value+"'>";
+            $(this).html(html_data);
+        });   
+    });
+
+    $("#save_all_btn_{{collection.id}}").click(function(){
+        $("#save_all_btn").attr("disabled","disabled");
+        $("#save_all_btn").text("Saving Data....");
+        var json_data = {};
+        var id = {{collection.id}};
+        json_data['id'] = id;
+        $(".input_data_{{collection.id}}").each(function(){
+            var value = $(this).val();
+            var parent_html = $(this).parent();
+            var type = parent_html.data('type')
+            if (type=='collectionName') {
+                var html_data="<a href='{% url 'collection' collection_id=collection.id %}' class='href_{{collection.id}}'>"+value+"</a>";
+                parent_html.html(html_data);
+                $(this).remove();
+            }
+            else {
+                parent_html.html(value);
+                $(this).remove();
+            }  
+        });
+        $(".editable_{{collection.id}}").each(function(){
+            var type = $(this).data('type');
+            var data = $(this).text();
+            json_data[type] = data; 
+        });
+        var string_data=JSON.stringify(json_data);
+        $.ajax({
+            url:'{% url 'collection_update' %}',
+            type:'POST',
+            data:{data:string_data}
+        })
+        .done(function(response){
+            if(response['error']==false){
+                $("#upt_error").hide();
+                $("#upt_success").text(response['errorMessage']);
+                $("#upt_success").show();
+                setTimeout(function(){$("#upt_success").hide();},1000);
+            }
+            else{
+                $("#upt_success").hide();
+                $("#upt_error").text(response['errorMessage']);
+                $("#upt_error").show();
+                $("#collectionName_{{collection.id}}").html("<a href={% url 'collection' collection_id=collection.id %} class=href_{{collection.id}}>{{collection}}</a>");
+                $("#collectionDescription_{{collection.id}}").html("{{collection.description}}");
+                setTimeout(function(){$("#upt_error").hide();},1000);
+            }
+        })
+        .fail(function(){
+                $("#upt_success").hide();
+                $("#upt_error").text("Something Went Wrong!");
+                $("#upt_error").show();
+                setTimeout(function(){$("#upt_error").hide();},1000);
+        })
+        .always(function(){
+                $("#save_all_btn_{{collection.id}}").removeAttr("disabled");
+                $("#save_all_btn_{{collection.id}}").text("Save");
+                $("#update_btn_{{collection.id}}").show();
+                $("#save_all_btn_{{collection.id}}").hide();
+        })
+    })
+</script>
+
+
+
+

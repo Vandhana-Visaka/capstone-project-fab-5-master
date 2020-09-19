@@ -1,0 +1,47 @@
+<h4>Readers who read this book also read</h4>
+<div id="carouselExampleControls" class="carousel slide text-center" data-ride="carousel">
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <div>
+        {% if 'http' in same_collection_books.0.cover.url %}
+          <img src="{{ same_collection_books.0.cover }}" >
+        {% else %}
+          <img src="{{ same_collection_books.0.cover.url }}" >
+        {% endif %}
+        <div class="card-body">
+          <p class="card-title"><a href="/book/{{same_collection_books.0.ISBN}}">{{same_collection_books.0.title}}</a></p>
+          <p class="card-text"><strong>Author:</strong> {{ same_collection_books.0.authors }}</p>
+          {{same_collection_books.0.title}}<br/>
+          {{same_collection_books.1.title}}<br/>
+          {{same_collection_books.2.title}}
+        </div>
+      </div>
+    </div>
+    {% for book in same_collection_books|slice:"1:" %}
+    <div class="carousel-item">
+      <div>
+        {% if 'http' in book.cover.url %}
+          <img src="{{ book.cover }}">
+        {% else %}
+          <img src="{{ book.cover.url }}">
+        {% endif %}
+        <div class="card-body">
+          <p class="card-title"><a href="{% url 'book' isbn=book.ISBN %}">{{book.title}}</a></p>
+          <p class="card-text"><strong>Author:</strong> {{ book.authors }}</p>
+          {{same_collection_books.0.title}}<br/>
+          {{same_collection_books.1.title}}<br/>
+          {{same_collection_books.2.title}}
+        </div>
+      </div>
+    </div>
+    {% endfor%}
+  </div>
+  <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </a>
+</div>

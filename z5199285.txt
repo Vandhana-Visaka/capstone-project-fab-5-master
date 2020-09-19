@@ -1,0 +1,80 @@
+week 1
+
+Team has been formed with 5 person. 
+A scrum master has been decided (Vandhana Visakamurthy). 
+The project has been decided which is Reading Recommender System. 
+Google file sharing has been created by Rong. 
+I joined into Jira. 
+I read through the project specifications and wrote down key points for our first meeting. 
+We held our first meeting and decide our final deliverable would be a website. During the first meeting, we made clear about the definition of user stories and clarified the target users would be website users and website admins. 
+We wrote down all possible user stories in Google doc. 
+We mostly decide our first sprint which are register, login, create collection, add, remove books and search books. We decide using google cloud as server for our project.
+
+
+week 2
+
+I joined in the git repository and made the first commit of my work diary of week 1.
+I created a README file.
+I did research on different reading recommendation wesites like GoodReads, Riffle, LibraryThing, Libib, aNobii, BookBrowse and BookTrib to get a better understanding about those existing websites and gain insights on the problem scope.
+I removed one duplicate user story.
+I wrote the background part in proposal.
+We decided our weekly meeting and everyday scrum meeting.
+
+week 3
+
+I planned to continue to write proposal and start the first sprint.
+I wrote how project objectives are satisfied by user stories in proposal.
+I setup the google cloud server and database.
+I designed table Books and Collections.
+I created table Users.
+Me and Vandhana designed the storyboards.
+Me and Vandhana drew ER diagrams.
+
+
+
+week 4
+
+I learned how to deploy django project on GCP through app engine.
+I learned compute engine is better for our project.
+I learned how to connect with database by django which is through django models.
+I created books model and collection model.  
+I learned how to import csv file into tables in database.
+I tried to figure out the server problem.
+
+
+week 5
+
+I created a basic search page and made it work.
+I created the "add book to collection" from the main page and search page and made it work.
+I was assigned the work of reminding group members to learn Ajax.
+I am learning Ajax in Django how to make a dynamic webpage.
+I am trying to make an infinite scroll page.
+
+week 6
+
+I created pagination on main page and search page
+I added showing recent added books in collection page
+I learned how to delete collection by using Django and Ajax
+
+
+week 7
+
+I added "delete collection" and fixed the form resubmission when create a new collection and refresh the page.
+I added "edit collection" into collection page so that readers can edit collection name and description.
+
+week 8
+
+I prepared several slides of our progressive demo B presentation.
+We had our progressive demo B.
+We had our retrospective B and I was assigned to clean our project code.
+We started our final sprint and I was assigned to the work of setting the reading goal for our application.
+I finished creating the goal model.
+
+week 9
+
+I implemented the tracking goal function and cleaned and formatted the code.
+I fixed up a server error when searching for a non-exist book.
+I reformatted the books in collections.
+We had our progressive demo B.
+We had our meeting about final report and final presentation.
+

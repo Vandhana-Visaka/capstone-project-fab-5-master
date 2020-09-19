@@ -1,0 +1,67 @@
+week 1:
+
+Forming the group
+Dicuss group name and which project to finish
+Determine the scrum master
+Discuss the user stories 
+
+week 2:
+
+Discuss the some technologies in front end and back end
+Look througn some read recommendation websites to look for some drawbacks
+Determine the initial sprint
+Completing some parts in the proposal
+Determine the role of each member in the group(2 for back end and 3 for front end)
+Determine daily scrum meeting time 
+
+week3:
+
+Discussing the proposal and finishing it
+Learning how to create model file , html file, view file in Django 
+Learning how to test the class in model file.
+
+week4:
+
+Learn how to using GCD as server in our project.
+learning  how to use Bootstrap to modify our pages.
+Add the password changing and reseing functionality in our login page and home page.
+Starting design search page with Mark
+
+week5:
+
+Preparing for Progressive Demo A.
+add some other options(languange, coutry) when searching books.
+Start to leanrn jQuery used in our web page designing.
+
+week6:
+
+Design the user homepage.
+Add some random books in homepage.
+Debug the header difference between user homepage and other page.
+Add random collections in homepage.
+Debug about search bar when not login in 
+
+week7:
+
+Learn some konwledge about parallax scrolling.
+Attemping to another random collections.
+Begin to prepare for recommedaton system 
+
+week8:
+Give a demostration on Demo B
+Retrostpective Demo B
+Fix howing delete button  bug when looking through others' collection
+Start last sprint task.
+
+week9:
+Completing the one of recommendation mode.
+Check the final performance of our website.
+Work on the report.
+
+week10:
+Finish the report.
+Check the code last time.
+Check the setup file.
+Prepare the last presentation.
+
+

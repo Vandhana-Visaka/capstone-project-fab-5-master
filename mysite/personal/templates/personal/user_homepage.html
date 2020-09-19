@@ -1,0 +1,156 @@
+{%  extends 'base.html' %}
+
+{% block content %}
+
+
+<style type="text/css">
+	.card{
+		max-width: 230px;
+		width: 100%;
+        padding: 5px;
+	}
+	.card-body{
+		padding: 2px;
+        line-height: 18px;
+	}
+    .card-title{
+        padding-top: 1px;
+        font-size: 15px;
+        font-weight: bold;
+    }
+    .card-text{
+        font-size: 10px;
+        font-family: "Lucinda Grande", "Lucinda Sans Unicode", Helvetica, Arial, Verdana, sans-serif;
+    }
+    .center {
+        text-align: center;
+        margin-top: 25px;
+    }
+    
+    .wrapper{
+	justify-content: center;
+        align-items: center;
+	margin-left: 250px;
+	margin-right: 250px;
+     }
+	
+    .pagination {
+        display: inline-block;
+    }
+
+    .pagination a {
+        color: black;
+        float: left;
+        padding: 8px 16px;
+        text-decoration: none;
+        transition: background-color .3s;
+    }
+
+    .pagination a.active {
+        background-color: #0099ff;
+        color: white;
+    }
+
+    .pagination a:hover:not(.active) {background-color: #ddd;}
+
+}
+
+</style>
+
+<div  id="main_area" class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+  <h1 class="display-4">User Homepage</h1>
+  <p class="lead">
+      We are Fab5 ! We know what you want to read :)
+  </p>
+</div>
+
+<div class="container text-center">
+  <div class="row">
+    <div class="col-sm-2">
+      <div class="card bg-light ">
+        <a class='p-2 text-dark' href="{% url 'user_profile' username=username%}" class="card-link">My Profile</a>
+      </div>
+      <div class="card bg-light">
+        <div class="card-body">
+          {% if hide %}
+            <p class='p-2 text-dark'>Reading Goal</p>
+            <p>{{numFinished}}/{{numBooks}}</p>
+            <div class="progress">  
+              <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width:{{percentage}}%">
+                {{percentage}}%
+              </div>
+            </div>
+            <a href="{% url 'goalDetail' %}">View Challenge</a>
+          {% else %}
+            <p class='p-2 text-dark'>Set a goal</p>
+            <p>I want to read</p>
+            <form action="{% url 'setGoal' %}" method="post">
+              {% csrf_token %}
+              <input class="form-control" type="number" min=0 name="numBooks" required/>
+              <p>number of books this month</p>
+              <input class="btn btn-primary btn-block" type="submit" value="OK">
+            </form>
+          {% endif %}
+          </div>
+      </div>
+      <div class="card bg-light">
+        <div class="card-body">
+          <p class='p-2 text-dark'>My Collections</p>
+          <p>
+            {% for collection in collections %}
+              <p><a class='p-2 text-dark' href="{% url 'collection' collection_id=collection.id %}">{{ collection.collectionName}}</a></p>
+            {% endfor %}
+          </p>
+        </div>
+      </div>
+      <div class="card bg-light">
+        <div class="card-body">
+          {% for collection in other_users_collection %}
+            <p><a class='p-2 text-dark' href="{% url 'user_profile' username=collection.UID.username %}">{{collection.UID.username}}'s collection:</a></p>
+            <p><a class='p-2 text-dark' href="{% url 'collection' collection_id=collection.id %}">{{collection.collectionName}}</a></p>
+          {% endfor%}
+        </div>
+      </div>
+      <div class="card bg-light">
+        <div class="card-body">
+          <p class='p-2 text-dark'>Similar Users:</p>
+          {% for user in similar_user %}
+            <p><a class='p-2 text-dark' href="{% url 'user_profile' username=user %}">{{user}}</a></p>
+          {% endfor%}
+        </div>
+      </div>
+    </div>
+    
+    <div class="col-sm-8">
+      <div class="row">
+        <div class="col-sm-12 well">
+          <p>Hand Picked for You</p>
+          {% include 'personal/snippets/recmodes.html' %}
+        </div>
+      </div>
+    </div>
+    
+    <div class="col-sm-2">
+      <div class="card bg-light ">
+        <a class='p-2 text-dark' href="{% url 'user_profile' username=username%}" class="card-link">Random Books</a>
+      </div>
+      {% for book in books %}
+        <div class="card">
+          <figure>
+            {% if 'http' in book.cover.url %}
+              <img src="{{ book.cover }}" width="105"  >
+            {% else %}
+              <img src="{{ book.cover.url }}" width="105"  >
+            {% endif %}
+          </figure>
+          <div class="card-body">
+            <h3 class="card-title"><a href="{% url 'book' isbn=book.ISBN %}">{{book.title}}</a></h3>
+            <p class="card-text"><strong>Author:</strong> {{ book.authors }}</p>
+          </div>
+        </div>
+      {% endfor%}
+    </div>
+  </div>
+</div>
+
+{% endblock %}

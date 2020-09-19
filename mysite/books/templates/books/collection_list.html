@@ -1,0 +1,10 @@
+{%  extends 'base.html' %}
+
+{% block content %}
+
+{% for list in collection_list %}
+<li>{{ list.collectionName }}</li>
+<p>hello</p>
+{% endfor %}
+<p>{{ request.Collection.id }}</p>
+{% endblock content %}

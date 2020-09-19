@@ -1,0 +1,229 @@
+{%  extends 'base.html' %}
+
+{% block content %}
+
+<style type="text/css">
+	.card{
+		/*max-width: 230px;*/
+		width: 25%;
+    padding: 5px;
+	}
+	.card-body{
+		padding: 2px;
+    line-height: 18px;
+	}
+  .card-title{
+    padding-top: 10px;
+    font-size: 18px;
+    font-weight: bold;
+  }
+  .card-text{
+    font-size: 15px;
+    font-family: "Lucinda Grande", "Lucinda Sans Unicode", Helvetica, Arial, Verdana, sans-serif;
+  }
+  .center {
+    text-align: center;
+    margin-top: 25px;
+  }
+  .pagination {
+    display: inline-block;
+  }
+
+  .pagination a {
+    color: black;
+    float: left;
+    padding: 8px 16px;
+    text-decoration: none;
+    transition: background-color .3s;
+  }
+
+  .pagination a.active {
+    background-color: #0099ff;
+    color: white;
+  }
+
+  .pagination a:hover:not(.active) {background-color: #ddd;}
+
+</style>
+
+<div id="main_area" class="container text-center">
+  {% if books_list or user_list or review_list or collection_list %}
+    <div class="row" id="cards">
+      {% for book in books_list %}
+        <div class="card">
+          {% if 'http' in book.cover.url %}
+            <img src="{{ book.cover }}">
+          {% else %}
+            <img src="{{BASE_DIR}}{{ book.cover.url }}">
+          {% endif %}
+          <div class="card-body">
+            <h3 class="card-title"><a href="{% url 'book' isbn=book.ISBN %}">{{book.title}}</a></h3>
+            <p class="card-text">Author: {{ book.authors }}</p>
+            <p class="card-text">Publisher: {{ book.publisher }}</p>
+            <p class="card-text">Language: {{ book.language }}</p>
+            <p class="card-text">Country: {{ book.country }}</p>
+            <p class="card-text">ISBN: {{ book.ISBN }}</p>
+            <p class="card-text">Publication Date: {{ book.publication_date }}</p>
+          </div>
+          {% if uid %}
+            {% include 'usercollections/snippets/add_book_to_collection_button.html' %}
+          {% endif %}
+        </div>
+
+      {% endfor %}
+    </div>
+
+    <div class="row" id="cards">
+      {% for user in user_list %}
+        <div class="card">
+          <div class="card-body">
+            <h3 class="card-title"><a href="{% url 'user_profile' username=user.username %}">{{ user.username }}</a></h3>
+            <p class="card-text">First Name: {{ user.firstname }}</p>
+            <p class="card-text">Last Name: {{ user.lastname }}</p>
+            <p class="card-text">Gender: {{ user.gender }}</p>
+            <p class="card-text">Birthday: {{ user.birthday }}</p>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+
+    <div class="row" id="cards">
+      {% for collection in collection_list %}
+        <div class="card">
+          <div class="card-body">
+            <h3 class="card-title"><a href="{% url 'collection' collection_id=collection.id %}">{{ collection.collectionName }}</a></h3>
+            <a href="{% url 'user_profile' username=collection.UID.username %}">User: {{ collection.UID.username }}</a></p>
+            <p class="card-text">Books: {{ collection.books.count }}</p>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+
+    <div class="row" id="cards">
+      {% for review in review_list %}
+        <div class="card">
+          <div class="card-body">
+            <h3 class="card-title"><a href="{% url 'book' isbn=review.BID.ISBN %}">{{review.BID.title}}</a></h3>
+            <a href="{% url 'user_profile' username=review.UID.username %}">User: {{ review.UID.username }}</a></p>
+            <p class="card-text">Rating: {{ review.rating }}</p>
+            <p class="card-text">Review: {{ review.review }}</p>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+
+  <div class="center">
+    {% if books_list.has_other_pages %}
+      <div class="pagination">
+        {% if books_list.has_previous %}
+          <a href="?page=1&{{ request.GET.urlencode }}">First Page</a>
+          <a href="?page={{ books_list.previous_page_number }}&{{ request.GET.urlencode }}">&laquo;</a>
+        {% else %}
+          <a class="disable">&laquo;</a>
+        {% endif %}
+        {% for i in page_range %}
+          {% if books_list.number == i %}
+            <a class="active">{{ i }}</a>
+          {% else %}
+            <a href="?page={{ i }}&{{ request.GET.urlencode }}">{{ i }}</a>
+          {% endif %}
+        {% endfor %}
+        {% if books_list.has_next %}
+          <a href="?page={{ books_list.next_page_number }}&{{ request.GET.urlencode }}">&raquo;</a>
+          <a href="?page={{ max_index }}&{{ request.GET.urlencode }}">Last Page</a>
+        {% else %}
+          <a class="disable">&raquo;</a>
+        {% endif %}
+      </div>
+    {% endif %}
+  </div>
+
+  <div class="center">
+    {% if user_list.has_other_pages %}
+      <div class="pagination">
+        {% if user_list.has_previous %}
+          <a href="?page=1&{{ request.GET.urlencode }}">First Page</a>
+          <a href="?page={{ user_list.previous_page_number }}&{{ request.GET.urlencode }}">&laquo;</a>
+        {% else %}
+          <a class="disable">&laquo;</a>
+        {% endif %}
+        {% for i in page_range %}
+          {% if user_list.number == i %}
+            <a class="active">{{ i }}</a>
+          {% else %}
+            <a href="?page={{ i }}&{{ request.GET.urlencode }}">{{ i }}</a>
+          {% endif %}
+        {% endfor %}
+        {% if user_list.has_next %}
+          <a href="?page={{ user_list.next_page_number }}&{{ request.GET.urlencode }}">&raquo;</a>
+          <a href="?page={{ max_index }}&{{ request.GET.urlencode }}">Last Page</a>
+        {% else %}
+          <a class="disable">&raquo;</a>
+        {% endif %}
+      </div>
+    {% endif %}
+  </div>
+
+  <div class="center">
+    {% if collection_list.has_other_pages %}
+      <div class="pagination">
+        {% if collection_list.has_previous %}
+          <a href="?page=1&{{ request.GET.urlencode }}">First Page</a>
+          <a href="?page={{ collection_list.previous_page_number }}&{{ request.GET.urlencode }}">&laquo;</a>
+        {% else %}
+          <a class="disable">&laquo;</a>
+        {% endif %}
+        {% for i in page_range %}
+          {% if collection_list.number == i %}
+            <a class="active">{{ i }}</a>
+          {% else %}
+            <a href="?page={{ i }}&{{ request.GET.urlencode }}">{{ i }}</a>
+          {% endif %}
+        {% endfor %}
+        {% if collection_list.has_next %}
+          <a href="?page={{ collection_list.next_page_number }}&{{ request.GET.urlencode }}">&raquo;</a>
+          <a href="?page={{ max_index }}&{{ request.GET.urlencode }}">Last Page</a>
+        {% else %}
+          <a class="disable">&raquo;</a>
+        {% endif %}
+      </div>
+    {% endif %}
+  </div>
+
+  <div class="center">
+    {% if review_list.has_other_pages %}
+      <div class="pagination">
+        {% if review_list.has_previous %}
+          <a href="?page=1&{{ request.GET.urlencode }}">First Page</a>
+          <a href="?page={{ review_list.previous_page_number }}&{{ request.GET.urlencode }}">&laquo;</a>
+        {% else %}
+          <a class="disable">&laquo;</a>
+        {% endif %}
+        {% for i in page_range %}
+          {% if review_list.number == i %}
+            <a class="active">{{ i }}</a>
+          {% else %}
+            <a href="?page={{ i }}&{{ request.GET.urlencode }}">{{ i }}</a>
+          {% endif %}
+        {% endfor %}
+        {% if review_list.has_next %}
+          <a href="?page={{ review_list.next_page_number }}&{{ request.GET.urlencode }}">&raquo;</a>
+          <a href="?page={{ max_index }}&{{ request.GET.urlencode }}">Last Page</a>
+        {% else %}
+          <a class="disable">&raquo;</a>
+        {% endif %}
+      </div>
+    {% endif %}
+  </div>
+
+  {% else %}
+    <h1 style="text-align: center">No results</h1>
+    <h3 class="card-title" style="text-align: center">Sorry, there were no results matching your search.</h3>
+    <h3 class="card-title" style="text-align: center">Welcome to insert the book to our website.
+    <a class="m-auto" href="{% url 'books_insert' %}">Insert Books</a>
+    </h3>
+
+</div>
+
+{% endif %}
+{% endblock content %}

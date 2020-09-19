@@ -1,0 +1,57 @@
+Week 1
+
+1. Our group Fab 5 has been formed on Thursday's lab.
+2. I have created my Jira and Github accounts and joined into our group.
+3. We had a meeting on Saturday morning and discussed the user story and sprints. All of our group members are familiar with python, so we decide to use python to create our project.
+4. Vandhana and Yilgom will do the back end, Yuehui or Rong will do the front end, and I will do the recommendation algorithm system.
+5. We have decided to do the creating user accounts function, creating collection and add book to collections function, and searching books function as our first sprint.
+
+Week 2
+1. Determined the role of each member.
+2. Organized two meetings on Saturday and Sunday to discuss the proposal.
+3. Finished the architecture, story board, user stories and sprints part of the proposal.
+4. Set a time for daily catch up -- 10 am
+
+Week 3
+1. We have finished the proposal of this project.
+2. I have created the user login page.
+3. I have created the user register page.
+4. I have created the home page (need to add more features).
+
+Week 4
+1. I updated the html page for change password function.
+2. I updated the html page for forget password function.
+3. I updated the html page for reset password function.
+4. Start to implement the search function for users.
+
+Week 5
+1. I added some features and updated the format of the search page (function).
+2. I updated the home page to show the books' info instead of the users' info.
+3. We prepared for the first demo, and I will present the first two user stories (register & login).
+4. We had the retrospective meeting on Saturday, discussed what we learned and what we should improve.
+
+Week 6
+1. I created the user profile page for our website, user can have their page to display their user info and book collections.
+2. I updated the account for the users that users will have three default collections (read, want to read, currently reading) when they register the account.
+3. I updated the user page to display their recently read books and other users can access it.
+
+Week 7
+1. Fixed a bug that user cannot create duplicate collections under his/her account.
+2. Learned view error function which can display errors in user page.
+
+Week 8
+1. Updated format of search result page to display the summary of books.
+2. Presentation for Demo B on Thursday.
+3. Had the retrospective meeting with group on Friday.
+
+Week 9
+1. I created the similar users field under the account model to record all similar users for the current user.
+2. I wrote a function to calculate the similarity between all users (according to their gender and age) and will update automatically when there is a new register.
+3. I added a section to display the similar users account on the user home page.
+4. I wrote a view to display the books read by similar users on both home page and book page.
+
+Week 10
+1. For privacy reasons, I updated the user profile page to display the user's goal instead of user's personal info (gender, birthday).
+2. We tested our website and fixed some bugs (page format, extreme case).
+3. We had a meeting to discuss the final report and the presentation, and allocated tasks to each member.
+4. We started to write our report and prepare the project presentation.

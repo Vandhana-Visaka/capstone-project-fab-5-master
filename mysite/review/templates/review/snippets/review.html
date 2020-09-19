@@ -1,0 +1,155 @@
+<button class="btn btn-block btn-success" id="insert_review_btn" data-toggle="modal" data-target="#insert_review">Add a Review</button>
+<!-- Modal -->
+<div id="insert_review" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Add a Review</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="rating_form">
+                    <label>Rating: </label>
+                    <div class="rating">
+                        <input type="radio" name="rating" value="5" id="5"><label for="5">☆</label>
+                        <input type="radio" name="rating" value="4" id="4"><label for="4">☆</label>
+                        <input type="radio" name="rating" value="3" id="3"><label for="3">☆</label>
+                        <input type="radio" name="rating" value="2" id="2"><label for="2">☆</label>
+                        <input type="radio" name="rating" value="1" id="1"><label for="1">☆</label>
+                    </div>
+                </form>
+                <div class="form-group">
+                    <label>Review: </label>
+                    <input type="text" name="review" id="ins_review" class="form-control" placeholder="Review">
+                </div>
+                <div class="form-group">
+                    <input type="button" name="submit" class="btn btn-block btn-info btn-insert-data" value="Add a Review">
+                </div>
+                <div class="form-group">
+                    <div class="alert alert-success" id="ins_success" style="display:none">
+                    </div>
+                    <div class="alert alert-danger" id="ins_error"style="display:none">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function() {
+        console.log($.ajax);
+        console.log("hello");
+    });
+</script>
+
+<script>
+    function pageReload() {
+        window.location.reload();
+    }
+
+    $(".btn-insert-data").click(function() {
+        var rating = $('input[name=rating]:checked', '#rating_form').val();
+        var review = $('#ins_review').val();
+        var isbn = '{{isbn}}';
+        if (rating == "") {
+            $("#ins_error").text("Please select a rate")
+            $("#ins_error").show()
+            return;
+        }
+        else {
+            $.ajax({
+                url: "{% url 'add_review' %}",
+                type: 'POST',
+                data: {rating: rating, review: review, isbn: isbn}
+            })
+            .done(function(response) {
+                console.log(response)
+                if (response['error'] == false) {
+                    $("#ins_error").hide()
+                    $("#ins_success").text(response['errorMessage'])
+                    $("#ins_success").show()
+                    
+                    setTimeout("pageReload()", 1000);
+                }
+                else {
+                    $("#ins_success").hide()
+                    $("#ins_error").text(response['errorMessage'])
+                    $("#ins_error").show()
+                }
+            })
+            .fail(function(response) {
+                console.log("error")
+                $("#ins_success").hide()
+                $("#ins_error").text("Cannot add a review")
+                $("#ins_error").show()
+            })
+        }
+    })
+</script>
+
+<table class="table" id="books_table">
+    <thead>
+        <tr>
+            <th>User</th>
+            <th>Rating</th>
+            <th>Review</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for review in reviews %}
+            <tr>
+                <td><a href="{% url 'user_profile' username=review.UID.username %}">{{ review.UID.username }}</a></td>
+                <td>{{ review.rating }}</td>
+                <td>{{ review.review }}</td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="7" class="text-center bg-warning">No Review</td>
+            </tr>
+      {% endfor %}
+    </tbody>
+</table>
+
+<style type="text/css">
+    .rating {
+        display: flex;
+        flex-direction: row-reverse;
+        justify-content: center
+    }
+
+    .rating>input {
+        display: none
+    }
+
+    .rating>label {
+        position: relative;
+        width: 1em;
+        font-size: 2vw;
+        color: #FFD600;
+        cursor: pointer
+    }
+
+    .rating>label::before {
+        content: "\2605";
+        position: absolute;
+        opacity: 0
+    }
+
+    .rating>label:hover:before,
+    .rating>label:hover~label:before {
+        opacity: 1 !important
+    }
+
+    .rating>input:checked~label:before {
+        opacity: 1
+    }
+
+    .rating:hover>input:checked~label:before {
+        opacity: 0.4
+    }
+</style>

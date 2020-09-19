@@ -1,0 +1,217 @@
+{%  extends 'base.html' %}
+
+{% block content %}
+<style type="text/css">
+  .form-control-inline {
+    min-width: 0;
+    width: 100px;
+    display: inline;
+  }
+  .card{
+  /*max-width: 230px;*/
+  width: 100%;
+    padding: 5px;
+  }
+  .card-body{
+    padding: 2px;
+      line-height: 18px;
+  }
+  .card-title{
+    padding-top: 10px;
+    font-size: 18px;
+    font-weight: bold;
+  }
+  .card-text{
+    font-size: 15px;
+    font-family: "Lucinda Grande", "Lucinda Sans Unicode", Helvetica, Arial, Verdana, sans-serif;
+  }
+  .center {
+    text-align: center;
+    margin-top: 25px;
+  }
+</style>
+
+
+<div id="main_area" class="jumbotron">
+  <div class="alert alert-success" id="upt_success" style="display:none">
+  </div>
+  <div class="alert alert-danger" id="upt_error" style="display:none">
+  </div>
+  <div class="alert alert-success" id="delete_success" style="display:none">
+  </div>
+  <div class="alert alert-danger" id="delete_error" style="display:none">
+  </div>
+  {% if hide %}
+  <div class="container text-center" id="dshowEdit">
+    <h2>You have read {{goal.numFinished}} of {{goal.numBooks}} books</h2>
+    <button type="button" class="btn btn-link" id="edit">edit</button>
+  </div>  
+  <div class="container text-center" id="showEdit" style="display: none;">
+    <h2>I want to read
+    <input type="number" min=0 class="form-control-inline" required/>
+    books in this month </h2>
+    <button type="button" class="btn" id="cancel">Cancel</button>
+    <button type="button" class="btn btn-success" id="save">Save</button>
+    <button type="button" class="btn btn-danger" id="delete">Delete</button>
+  </div>
+  <div class="container text-center" id="deleteCon" style="display: none;">
+    <h2>Are you sure to delete your goal for this month? </h2>
+    <button type="button" class="btn" id="cancelCh">Cancel</button>
+    <button type="button" class="btn btn-danger" id="deleteCh">Delete</button>
+  </div>
+  {% else %}
+  <div class="container text-center" id="goalNone">
+    <h2>Set your reading goal for this month </h2>
+  </div>
+  {% endif %}
+</div>
+
+<div class="container text-center">
+  <div class="col-sm-12 well">
+    <div class="card-deck">
+      <div class="row" id="cards">
+        {% for book in books %}
+          <div class="card">
+            {% if 'http' in book.cover.url %}
+              <img src="{{ book.cover }}">
+            {% else %}
+              <img src="{{ book.cover.url }}">
+            {% endif %}
+            <div class="card-body">
+              <h3 class="card-title"><a href="{% url 'book' isbn=book.ISBN %}">{{book.title}}</a></h3>
+              <p class="card-text">Author: {{ book.authors }}</p>
+              <p class="card-text">Publisher: {{ book.publisher }}</p>
+              <p class="card-text">Language: {{ book.language }}</p>
+              <p class="card-text">Country: {{ book.country }}</p>
+              <p class="card-text">ISBN: {{ book.ISBN }}</p>
+              <p class="card-text">Publication Date: {{ book.publication_date }}</p>
+              <p class="card-text">Genre: {{ book.genres }}</p>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  function pageReload() {
+    window.location.reload();
+  }
+  $("#edit").click(function(){
+    $("#dshowEdit").hide();
+    $("#showEdit").show();
+  });
+
+  $("#cancel").click(function(){
+    var this_html = $(".form-control-inline");
+    this_html.val('');
+    $("#dshowEdit").show();
+    $("#showEdit").hide();
+  });
+
+  $("#cancelCh").click(function(){
+    $("#deleteCon").hide();
+    $("#dshowEdit").show();
+    $("#showEdit").hide();
+
+  });
+
+  $("#delete").click(function(){
+    $("#deleteCon").show();
+    $("#dshowEdit").hide();
+    $("#showEdit").hide();
+  });
+
+  $("#deleteCh").click(function(){
+    var year = {{goal.year}};
+    var month = {{goal.month}};
+    var json_data = {
+      'year':year,
+      'month':month,
+    }
+    var string_data=JSON.stringify(json_data);
+    $.ajax({
+      url:'{% url 'deleteGoal' %}',
+      type:'POST',
+      data:{data:string_data}
+    })
+    .done(function(response){
+      if(response['error']==false){
+        $("#deleteCon").hide();
+        $("#dshowEdit").hide();
+        $("#showEdit").hide();
+        $("#goalNone").show();
+        $("#delete_error").hide()
+        $("#delete_success").text(response['errorMessage'])
+        $("#delete_success").show()
+        setTimeout("pageReload()", 1000);
+      }
+      else {
+        $("#delete_success").hide()
+        $("#delete_error").text(response['errorMessage'])
+        $("#delete_error").show()
+        $("#deleteCon").hide();
+        $("#dshowEdit").show();
+        $("#showEdit").hide();
+        $("#goalNone").hide();
+      }
+    })
+    .fail(function(response) {
+      $("#delete_success").hide()
+      $("#delete_error").text(response['errorMessage'])
+      $("#delete_error").show()
+      $("#deleteCon").hide();
+      $("#dshowEdit").show();
+      $("#showEdit").hide();
+      $("#goalNone").hide();
+    })
+    
+
+  });
+
+  $("#save").click(function(){
+    var this_html = $(".form-control-inline");
+    var num = this_html.val();
+    var year = {{goal.year}};
+    var month = {{goal.month}};
+    var json_data = {
+      'year':year,
+      'month':month,
+      'numBooks':num
+    }
+    var string_data=JSON.stringify(json_data);
+    $.ajax({
+      url:'{% url 'editGoal' %}',
+      type:'POST',
+      data:{data:string_data}
+    })
+    .done(function(response){
+      if(response['error']==false){
+        $("#dshowEdit").show();
+        $("#showEdit").hide();
+        $("#upt_error").hide();
+        $("#upt_success").text(response['errorMessage']);
+        $("#upt_success").show();
+        setTimeout(function(){$("#upt_success").hide();},1000);
+        setTimeout("pageReload()",1000);
+
+      }
+      else{
+        $("#upt_success").hide();
+        $("#upt_error").text(response['errorMessage']);
+        $("#upt_error").show();
+        setTimeout(function(){$("#upt_error").hide();},1000);
+      }
+    })
+    .fail(function(){
+        $("#upt_success").hide();
+        $("#upt_error").text("Something Went Wrong!");
+        $("#upt_error").show();
+        setTimeout(function(){$("#upt_error").hide();},1000);
+    })
+    
+  });
+</script>
+
+{% endblock %}

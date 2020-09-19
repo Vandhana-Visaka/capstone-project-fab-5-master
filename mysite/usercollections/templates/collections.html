@@ -1,0 +1,103 @@
+{%  extends 'base.html' %}
+
+{% block content %}
+
+<style type="text/css">
+    .user_collection {
+      width: 100%;
+      max-width: 330px;
+      padding: 15px;
+      margin: 0 auto;
+    }
+    .user_collection {
+      position: relative;
+      box-sizing: border-box;
+      height: auto;
+      padding: 10px;
+      font-size: 16px;
+    }
+    .h3{
+        text-align: center;
+    }
+</style>
+
+
+<div id="main_area" class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+  <h1 class="display-4">Collections </h1>
+  <p class="lead">
+      We are Fab5 ! We know what you want to read :)
+  </p>
+</div>
+
+<div class="container">
+  <div class="row">
+    {% include 'usercollections/snippets/add_collection.html' %}
+  </div>
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="alert alert-success" id="upt_success" style="display:none">
+      </div>
+        <div class="alert alert-danger" id="upt_error" style="display:none">
+        </div>
+    </div>
+  </div>
+
+  <div class="toast" data-autohide="false">
+    <div class="toast-header">
+      <strong class="mr-auto text-primary">Congratulate!</strong>
+      <button type="button" class="ml-2 mb-1 close" data-dismiss="toast">&times;</button>
+    </div>
+    <div class="toast-body">
+      You have finished your goal!
+    </div>
+  </div>
+  
+  <table class="table" id="collections_table">
+    <thead>
+      <tr>
+        <th>Collection Name</th>
+        <th>Description</th>
+        <th>Edit</th>
+        <th>Delete</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for collection in collections %}
+        <tr>
+          <td class="editable_{{collection.id}}" data-type="collectionName" id=collectionName_{{collection.id}}>
+            <a href="{% url 'collection' collection_id=collection.id %}" class="href_{{collection.id}}">{{collection}}</a>
+          </td>
+          <td class="editable_{{collection.id}}" data-type="description" id=collectionDescription_{{collection.id}}>
+            {{collection.description}}
+          </td>
+          {% if collection.collectionName not in update_forbid %}
+          <td>
+            {% include 'usercollections/snippets/edit_collection.html' %}
+          </td>
+          <td class="btn-td-block">
+            {% include 'usercollections/snippets/delete_collection.html' %}
+          </td>
+          {% else %}
+            <td></td>
+            <td></td>
+          {% endif %}
+        </tr>
+      {% empty %}
+        <tr>
+          <td colspan="7" class="text-center bg-warning">No Collections</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+</div>
+
+<script>
+  $(document).ready(function(){
+    if ("{{goalShow}}" == "True") {
+      $('.toast').toast('show');
+    }
+  });
+</script>
+
+{% endblock content %}

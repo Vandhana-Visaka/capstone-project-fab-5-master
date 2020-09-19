@@ -1,0 +1,124 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<style type="text/css">
+    .form-signin {
+      width: 100%;
+      max-width: 330px;
+      padding: 15px;
+      margin: 0 auto;
+    }
+
+    .form-signin .form-control {
+      position: relative;
+      box-sizing: border-box;
+      height: auto;
+      padding: 10px;
+      font-size: 16px;
+    }
+    .form-signin .form-control:focus {
+      z-index: 2;
+    }
+    .form-signin input[type="email"] {
+      margin-bottom: 10px;
+      border-bottom-right-radius: 0;
+      border-bottom-left-radius: 0;
+    }
+    {#username#}
+    .form-signin input[type="text"] {
+      margin-bottom: 10px;
+      border-top-left-radius: 0;
+      border-top-right-radius: 0;
+    }
+    {#firstname#}
+    .form-signin input[type="text"] {
+      margin-bottom: 10px;
+      border-top-left-radius: 0;
+      border-top-right-radius: 0;
+    }
+    {#lastname#}
+    .form-signin input[type="text"] {
+      margin-bottom: 10px;
+      border-top-left-radius: 0;
+      border-top-right-radius: 0;
+    }
+    {#gender#}
+    .form-signin input[type="text"] {
+      margin-bottom: 10px;
+      border-top-left-radius: 0;
+      border-top-right-radius: 0;
+    }
+    {#birthdate#}
+    .form-signin input[type="date"] {
+      margin-bottom: 10px;
+      border-top-left-radius: 0;
+      border-top-right-radius: 0;
+    }
+    {#password#}
+    .form-signin input[type="password"] {
+      margin-bottom: 10px;
+      border-bottom-right-radius: 0;
+      border-bottom-left-radius: 0;
+    }
+    .h3{
+        text-align: center;
+    }
+    .check {
+      display: inline;
+      /*padding: 30px;*/
+      padding-right: 20px;
+    }
+</style>
+
+<form id="main_area" class="form-signin" method="post">{% csrf_token %}
+
+    <h1 class="h3 mb-3 font-weight-normal">Register an Account</h1>
+
+    <input type="email" name='email' id="inputEmail" class="form-control" placeholder="Email address" value="{{register_email}}" required autofocus>
+
+    <input type="text" name='username' id="inputUsername" class="form-control" placeholder="Username" value="{{register_username}}" required>
+
+    <input type="text" name='firstname' id="inputFirstname" class="form-control" placeholder="Firstname" value="{{register_firstname}}" required>
+
+    <input type="text" name='lastname' id="inputLastname" class="form-control" placeholder="Lastname" value="{{register_lastname}}" required>
+
+    <!-- <input type="text" name='gender' id="inputGender" class="form-control" placeholder="Male/Female/Other" required> -->
+    <div class="form-check text-left">
+      <div class="check">
+        <input class="form-check-input" type="radio" name='gender' id="inputGenderMale" value="Male" required {{male_checked}}>
+        <label class="form-check-label" for="inputGenderMale">Male</label>
+      </div>
+      <div class="check">
+        <input class="form-check-input" type="radio" name='gender' id="inputGenderFemale" value="Female" required {{female_checked}}>
+        <label class="form-check-label" for="inputGenderFemale">Female</label>
+      </div>
+      <div class="check">
+        <input class="form-check-input" type="radio" name='gender' id="inputGenderOther" value="Other" required {{other_checked}}>
+        <label class="form-check-label" for="inputGenderOther">Other</label>
+      </div>
+    </div>
+
+    <input type="date" name='birthday' id="inputBirthday" class="form-control" placeholder="Birthday" value="{{register_birthday}}" required>
+
+    <input type="password" name='password1' id="inputPassword1" class="form-control" placeholder="Password" required>
+
+    <input type="password" name='password2' id="inputPassword2" class="form-control" placeholder="Confirm Password" required>
+
+    {% for field in registration_form %}
+        <p>
+        {%  for error in field.errors %}
+        <p style="color: red;">{{ error }}</p>
+        {% endfor %}
+        </p>
+    {% endfor %}
+    {% if registration_form.non_field_errors %}
+        <div style="color: red;">
+            <p>{{ registration_form.non_field_errors }}</p>
+        </div>
+    {% endif %}
+
+    <button class="btn btn-lg btn-primary btn-block" type="submit">Sign Up</button>
+
+</form>
+{% endblock content %}

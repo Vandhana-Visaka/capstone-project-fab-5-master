@@ -1,0 +1,78 @@
+Work Diary
+
+Week 1:
+1. Formed a group - Fab 5
+2. Decided Scrum Master
+3. Created Jira and Git
+4. Had an initial meeting and discussed the project specification.
+5. Decided on the project - ReadRecommend.
+6. Discussed the possible user stories and initial sprint.
+
+Week 2:
+1. Discussed all possible technologies/frameworks we could use.
+2. Discussed the system architecture and layers.
+3. Discussed the roles and split the tasks amongst the team.
+4. Meeting on Thursday - Lab and Saturday. 
+5. Collaboratively wrote parts of the report on Sunday - Background, User Stories, Architecture, Initial Sprint, etc.
+6. Took the initiative to finish the System Architecture and Layered Representation diagrams. 
+
+Week 3:
+1. Designed the user story boards with Yiligong for the proposal.
+2. Designed the user interface of website pages with Yiligong and linked them according to the format in lecture. 
+3. Proof read, edited and included content collaboratively written by the team into the proposal document.
+4. Submitted Proposal on 21.06.2020.
+5. Designed ER diagram of the database and schema. Yiligong and I are incharge of backend, we designed the database, set it up and split the work between us.
+6. Created Books table on Google Cloud SQL.
+7. Hosted daily scrum meetings.
+
+Week 4:
+1. Completed tasks for two user stories with the team.
+2. Discussed tasks for remaining user stories for initial sprint and learnt how to use Django framework for backend.
+3. Discussed deliverables for Progressive Demo A.
+4. Yiligong and I had to create the models for Books and we wrote the code for models.py, views,py, etc in books.
+5. Found datasets, imported it into dataframes, cleaned it and exported it as CSV for the schema in the database.
+6. Hosted daily scrum meetings.
+
+Week 5:
+1. Populated the books table using CSV from Google Cloud Platform.
+2. Created presentation slides with Yiligong.
+3. Preparing for Progressive Demo A.
+4. Coded the CSS for adding a book and collections. 
+5. Working on Book covers display. 
+6. Completed Demo A successfully and got valuable feedback from our in-charge.
+7. Hosted daily scrum meetings. 
+8. Organised Retrospective meeting for initial sprint on 03.07.2020 at 7pm with the team and made notes. 
+
+Week 6:
+1. Found a better dataset for books. Cleaned and merged it for our use.
+2. Learnt how to safe delete the tables without causing dependencies to crash.
+3. Uploaded the new books table after safe deleting the old table.
+4. Learnt Jquery basics and helping Antony with Bootstrap/CSS pages. 
+5. Learnt how to add features in Django using forms.
+6. Working on Retrospective A Report.
+7. Organised daily scrum meetings and requirements meeting for second sprint.
+
+Week 7:
+1. Submitted Retrospective A. 
+2. Designed the layout of the website (HTML+CSS+Bootstrap) and integrated it.
+3. Fixed bugs due to layout change.
+4. Organised daily scrum meetings and requirements meeting for second sprint.
+
+Week 8:
+1. Changed the book insert feature as per suggestions from first demo feedback.
+2. Worked on the presentation template and respective slides.
+3. Solved bugs relating to insertion and search results.
+4. Hosted the Retrospective Meeting B.
+5. Started working on final sprint.
+
+Week 9:
+1. Drafted the Retrospective B report and submitted it.
+2. Worked on the Book Recommendation based on content.
+3. Added the recommended books in user homepage using HTML/CSS.
+4. Fixed bugs and improved the performance of the pages to load books.
+5. Conducted daily scrum meetings.
+6. Ended the final sprint.
+
+Week 10:
+1. Commented code for the project as decided in Retrospective B.
+2. Worked on the final report and slides for presentation.

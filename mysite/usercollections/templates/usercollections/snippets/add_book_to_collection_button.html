@@ -1,0 +1,74 @@
+<button class="btn btn-success" id="add_book_btn" data-toggle="modal" data-target="#add_book_modal_{{book.ISBN}}">Add to a Collection</button>
+
+<div id="add_book_modal_{{book.ISBN}}" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Add a Book to:</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="add_book_form_{{book.ISBN}}">
+                    <label>Collection: </label>
+                    {% for collection in collections %}
+                    <div class="form-check text-left">
+                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio_{{collection.id}}_{{book.ISBN}}" value="{{collection.id}}">
+                        <label class="form-check-label" for="inlineRadio_{{collection.id}}_{{book.ISBN}}">{{collection.collectionName}}</label>
+                    </div>
+                    {% endfor %}
+                </form>
+                <div class="form-group">
+                    <input type="button" name="submit" class="btn btn-block btn-info btn-insert-data" id="add_book_{{book.ISBN}}" value="Add a Book">
+                </div>
+                <div class="form-group">
+                    <div class="alert alert-success" id="add_book_message_success_{{book.ISBN}}" style="display:none">
+                    </div>
+                    <div class="alert alert-danger" id="add_book_message_error_{{book.ISBN}}"style="display:none">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    function pageReload() {
+        window.location.reload();
+    }
+    $("#add_book_{{book.ISBN}}").click(function() {
+        var collection_id = $('input[name=inlineRadioOptions]:checked', '#add_book_form_{{book.ISBN}}').val();
+        var isbn = '{{book.ISBN}}';
+        if (typeof collection_id == 'undefined') {
+            $("#add_book_message_error_{{book.ISBN}}").text("Please select a collection")
+            $("#add_book_message_error_{{book.ISBN}}").show()
+            return;
+        }
+        else {
+            $.ajax({
+                url: "{% url 'add_book_btn' %}",
+                type: 'POST',
+                data: {isbn: isbn, collection_id: collection_id}
+            })
+            .done(function(response) {
+                if (response['error'] == false) {
+                    $("#add_book_message_error_{{book.ISBN}}").hide()
+                    $("#add_book_message_success_{{book.ISBN}}").text(response['errorMessage'])
+                    $("#add_book_message_success_{{book.ISBN}}").show()
+                    
+                    setTimeout("pageReload()", 1000);
+                }
+            })
+            .fail(function(response) {
+                $("#add_book_message_success_{{book.ISBN}}").hide()
+                $("#add_book_message_error_{{book.ISBN}}").text("Cannot add a book")
+                $("#add_book_message_error_{{book.ISBN}}").show()
+            })
+        }
+    })
+
+</script>

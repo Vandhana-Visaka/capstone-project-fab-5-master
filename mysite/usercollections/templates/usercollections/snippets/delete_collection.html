@@ -1,0 +1,62 @@
+
+<button class="btn btn-block btn-delete btn-danger" id="delete_col_btn" data-toggle="modal" data-target="#delete_col_modal_{{collection.id}}">Delete</button>
+<div id="delete_col_modal_{{collection.id}}" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Are you sure to delete collection {{collection}} ?</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <input type="button" name="delete" class="btn btn-block btn-delete btn-danger" id="delete_col_{{collection.id}}" value="Delete">
+                </div>
+
+                <div class="form-group">
+                    <div class="alert alert-success" id="delete_collection_message_success_{{collection.id}}" style="display:none">
+                    </div>
+                    <div class="alert alert-danger" id="delete_collection_message_error_{{collection.id}}"style="display:none">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    function pageReload() {
+        window.location.reload();
+    }
+    $("#delete_col_{{collection.id}}").click(function() {
+        var this_html=$("#delete_col_btn");
+        var id = {{collection.id}};
+        $.ajax({
+            url:'{% url 'collection_delete' %}',
+            type:'POST',
+            data:{id:id}
+        })
+        .done(function(response){
+            if(response['error']==false){
+                $("#delete_collection_message_error_{{collection.id}}").hide()
+                $("#delete_collection_message_success_{{collection.id}}").text(response['errorMessage'])
+                $("#delete_collection_message_success_{{collection.id}}").show()
+                setTimeout("pageReload()", 1000);
+            }
+            else {
+                $("#delete_collection_message_success_{{collection.id}}").hide()
+                $("#delete_collection_message_error_{{collection.id}}").text(response['errorMessage'])
+                $("#delete_collection_message_error_{{collection.id}}").show()
+            }
+        })
+        .fail(function(response) {
+            $("#delete_collection_message_success_{{collection.id}}").hide()
+            $("#delete_collection_message_error_{{collection.id}}").text("Cannot delete")
+            $("#delete_collection_message_error_{{collection.id}}").show()
+        })
+    })
+</script>

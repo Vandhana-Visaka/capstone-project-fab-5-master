@@ -1,0 +1,266 @@
+<button class="btn btn-outline-secondary my-2 my-sm-0" type="button" id="adv_search_btn" data-toggle="modal" data-target="#adv_search">Advanced Search</button>
+<!-- Modal -->
+<div id="adv_search" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link active" id="Book-tab" data-toggle="tab" href="#Book" role="tab" aria-controls="Book" aria-selected="true">Book</a>
+                </li>
+                {% if uid %}
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link" id="User-tab" data-toggle="tab" href="#User" role="tab" aria-controls="User" aria-selected="false">User</a>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link" id="Collection-tab" data-toggle="tab" href="#Collection" role="tab" aria-controls="Collection" aria-selected="false">Collection</a>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link" id="Review-tab" data-toggle="tab" href="#Review" role="tab" aria-controls="Review" aria-selected="false">Review</a>
+                </li>
+                {% endif %}
+            </ul>
+            
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="Book" role="tabpanel" aria-labelledby="Book-tab">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Advanced Search for Books</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+
+                        <div class="form-group">
+                            <label for="formGroupBookRatingUpperInput">Rating ≤ </label>
+                            <input type="text" class="form-control" id="formGroupBookRatingUpperInput">
+                        </div>
+                        <div class="form-group">
+                            <label for="formGroupBookRatingLowerInput">Rating ≥ </label>
+                            <input type="text" class="form-control" id="formGroupBookRatingLowerInput">
+                        </div>
+                        <div class="form-group">
+                            <label for="formGroupTitleInput">Title</label>
+                            <input type="text" class="form-control" id="formGroupTitleInput">
+                        </div>
+                        <div class="form-group">
+                            <label for="formGroupISBNInput">ISBN</label>
+                            <input type="text" class="form-control" id="formGroupISBNInput">
+                        </div>
+                        <div class="form-group">
+                            <label for="formGroupGenreInput">Genre</label>
+                            <input type="text" class="form-control" id="formGroupGenreInput">
+                        </div>
+                        <div class="form-group">
+                            <label for="formGroupAuthorInput">Author</label>
+                            <input type="text" class="form-control" id="formGroupAuthorInput">
+                        </div>
+                        <div class="form-group">
+                            <label for="formGroupPublisherInput">Publisher</label>
+                            <input type="text" class="form-control" id="formGroupPublisherInput">
+                        </div>
+                        <div class="form-group">
+                            <label for="formGroupLanguageInput">Language</label>
+                            <input type="text" class="form-control" id="formGroupLanguageInput">
+                        </div>
+                        <div class="form-group">
+                            <label for="formGroupCountryInput">Country</label>
+                            <input type="text" class="form-control" id="formGroupCountryInput">
+                        </div>
+
+                        <div class="form-group">
+                            <input type="button" name="submit" class="btn btn-block btn-info btn-search-book" value="Search">
+                        </div>
+
+                        <div class="form-group">
+                            <div class="alert alert-success" id="search-book_success" style="display:none">
+                            </div>
+                            <div class="alert alert-danger" id="search-book_error"style="display:none">
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                
+                <div class="tab-pane fade" id="User" role="tabpanel" aria-labelledby="User-tab">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Advanced Search for Users</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+
+                        <div class="form-group">
+                            <label for="formGroupUsernameInput">Username</label>
+                            <input type="text" class="form-control" id="formGroupUsernameInput">
+                        </div>
+
+                        <div class="form-group">
+                            <input type="button" name="submit" class="btn btn-block btn-info btn-search-user" value="Search">
+                        </div>
+
+                        <div class="form-group">
+                            <div class="alert alert-success" id="search-user_success" style="display:none">
+                            </div>
+                            <div class="alert alert-danger" id="search-user_error"style="display:none">
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                
+                <div class="tab-pane fade" id="Collection" role="tabpanel" aria-labelledby="Collection-tab">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Advanced Search for Collections</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+
+                        <div class="form-group">
+                            <label for="formGroupCollectionNameInput">Collection Name</label>
+                            <input type="text" class="form-control" id="formGroupCollectionNameInput">
+                        </div>
+                        <div class="form-group">
+                            <label for="formGroupLowerBooksInput">Number of books is more than</label>
+                            <input type="text" class="form-control" id="formGroupLowerBooksInput">
+                        </div>
+                        <div class="form-group">
+                            <label for="formGroupUpperBooksInput">Number of books is smaller than</label>
+                            <input type="text" class="form-control" id="formGroupUpperBooksInput">
+                        </div>
+
+                        <div class="form-group">
+                            <input type="button" name="submit" class="btn btn-block btn-info btn-search-collection" value="Search">
+                        </div>
+
+                        <div class="form-group">
+                            <div class="alert alert-success" id="search-collection_success" style="display:none">
+                            </div>
+                            <div class="alert alert-danger" id="search-collection_error"style="display:none">
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="Review" role="tabpanel" aria-labelledby="Review-tab">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Advanced Search for Review</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+
+                        <div class="form-group">
+                            <label for="formGroupReviewBookTitleInput">Book Title</label>
+                            <input type="text" class="form-control" id="formGroupReviewBookTitleInput">
+                        </div>
+                        <div class="form-group">
+                            <label for="formGroupReviewUserNameInput">User Name</label>
+                            <input type="text" class="form-control" id="formGroupReviewUserNameInput">
+                        </div>
+
+
+                        <div class="form-group">
+                            <input type="button" name="submit" class="btn btn-block btn-info btn-search-review" value="Search">
+                        </div>
+
+                        <div class="form-group">
+                            <div class="alert alert-success" id="search-review_success" style="display:none">
+                            </div>
+                            <div class="alert alert-danger" id="search-review_error"style="display:none">
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function() {
+        console.log($.ajax);
+        console.log("hello");
+    });
+</script>
+
+<script>
+    function isNormalInteger(str) {
+        str = str.trim();
+        if (!str) {
+            return false;
+        }
+        str = str.replace(/^0+/, "") || "0";
+        var n = Math.floor(Number(str));
+        return n !== Infinity && String(n) === str && n >= 0;
+    }
+
+    $(".btn-search-book").click(function() {
+        var title = $('#formGroupTitleInput').val();
+        var isbn = $('#formGroupISBNInput').val();
+        var genre = $('#formGroupGenreInput').val();
+        var author = $('#formGroupAuthorInput').val();
+        var publisher = $('#formGroupPublisherInput').val();
+        var language = $('#formGroupLanguageInput').val();
+        var country = $('#formGroupCountryInput').val();
+        var ratingUpper = $('#formGroupBookRatingUpperInput').val();
+        var ratingLower = $('#formGroupBookRatingLowerInput').val();
+
+        if (!(Number(ratingUpper) >= 0 || ratingUpper == "")) {
+            $("#search-collection_error").text("Please enter a positive integer")
+            $("#search-collection_error").show()
+            return;
+        }
+        else if (!(Number(ratingLower) >= 0 || ratingLower == "")) {
+            $("#search-collection_error").text("Please enter a positive integer")
+            $("#search-collection_error").show()
+            return;
+        }
+        else {
+            window.location.href = {% url 'adv_search_book' %} + "?title=" + title + "&isbn=" + isbn + "&genre=" + genre + "&author=" + author + "&publisher=" + publisher + "&language=" + language + "&country=" + country + "&ratingUpper=" + ratingUpper + "&ratingLower=" + ratingLower;
+        }
+    })
+
+    $(".btn-search-user").click(function() {
+        var username = $('#formGroupUsernameInput').val();
+        window.location.href = {% url 'adv_search_user' %} + "?username=" + username;
+    })
+
+    $(".btn-search-collection").click(function() {
+        var collectionName = $('#formGroupCollectionNameInput').val();
+        var lowerBound = $('#formGroupLowerBooksInput').val();
+        var upperBound = $('#formGroupUpperBooksInput').val();
+        if (!(isNormalInteger(lowerBound) || lowerBound == "")) {
+            $("#search-collection_error").text("Please enter a positive integer")
+            $("#search-collection_error").show()
+            return;
+        }
+        else if (!(isNormalInteger(upperBound) || upperBound == "")) {
+            $("#search-collection_error").text("Please enter a positive integer")
+            $("#search-collection_error").show()
+            return;
+        }
+        else {
+            window.location.href = {% url 'adv_search_collection' %} + "?collectionName=" + collectionName + "&lowerBound=" + lowerBound + "&upperBound=" + upperBound;
+        }
+    })
+
+    $(".btn-search-review").click(function() {
+        var title = $('#formGroupReviewBookTitleInput').val();
+        var username = $('#formGroupReviewUserNameInput').val();
+
+        if (false) {
+            $("#search-review_error").text("Please")
+            $("#search-review_error").show()
+            return;
+        }
+        else {
+            window.location.href = {% url 'adv_search_review' %} + "?title=" + title + "&username=" + username;
+        }
+    })
+
+</script>

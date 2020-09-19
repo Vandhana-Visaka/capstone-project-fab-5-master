@@ -1,0 +1,106 @@
+{%  extends 'base.html' %}
+
+{% block content %}
+<style type="text/css">
+  .card{
+    /*max-width: 230px;*/
+    width: 25%;
+    padding: 5px;
+  }
+  .card-body{
+    padding: 2px;
+    line-height: 18px;
+  }
+  .card-title{
+    padding-top: 10px;
+    font-size: 18px;
+    font-weight: bold;
+  }
+  .card-text{
+    font-size: 15px;
+    font-family: "Lucinda Grande", "Lucinda Sans Unicode", Helvetica, Arial, Verdana, sans-serif;
+  }
+  .center {
+    text-align: center;
+    margin-top: 25px;
+  }
+  .pagination {
+    display: inline-block;
+  }
+
+  .pagination a {
+    color: black;
+    float: left;
+    padding: 8px 16px;
+    text-decoration: none;
+    transition: background-color .3s;
+  }
+
+  .pagination a.active {
+    background-color: #0099ff;
+    color: white;
+  }
+
+  .pagination a:hover:not(.active) {background-color: #ddd;}
+
+</style>
+
+<div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+  <h1 class="display-4">Read Recommend System</h1>
+  <p class="lead">
+    We are Fab5 ! We know what you want to read :)
+  </p>
+</div>
+
+<div class="container text-center">
+  <div class="col-sm-12 well">
+    <div class="row" id="cards">
+      {% for book in books %}
+        <div class="card">
+          {% if 'http' in book.cover.url %}
+            <img src="{{ book.cover }}">
+          {% else %}
+            <img src="{{ book.cover.url }}">
+          {% endif %}
+          <div class="card-body">
+            <h3 class="card-title"><a href="{% url 'book' isbn=book.ISBN %}">{{book.title}}</a></h3>
+            <p class="card-text">Author: {{ book.authors }}</p>
+            <p class="card-text">Publisher: {{ book.publisher }}</p>
+            <p class="card-text">Language: {{ book.language }}</p>
+            <p class="card-text">Country: {{ book.country }}</p>
+            <p class="card-text">ISBN: {{ book.ISBN }}</p>
+            <p class="card-text">Publication Date: {{ book.publication_date }}</p>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+
+  <div class="center">
+    {% if books.has_other_pages %}
+      <div class="pagination">
+        {% if books.has_previous %}
+          <a href="?page=1">First Page</a>
+          <a href="?page={{ books.previous_page_number }}">&laquo;</a>
+        {% else %}
+          <a class="disable">&laquo;</a>
+        {% endif %}
+        {% for i in page_range %}
+          {% if books.number == i %}
+            <a class="active">{{ i }}</a>
+          {% else %}
+            <a href="?page={{ i }}">{{ i }}</a>
+          {% endif %}
+        {% endfor %}
+        {% if books.has_next %}
+          <a href="?page={{ books.next_page_number }}">&raquo;</a>
+          <a href="?page={{ max_index }}">Last Page</a>
+        {% else %}
+          <a class="disable">&raquo;</a>
+        {% endif %}
+      </div>
+    {% endif %}
+  </div>
+</div>
+
+{% endblock %}

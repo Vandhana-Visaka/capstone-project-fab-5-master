@@ -1,0 +1,2 @@
+This folder contains all reports and presentations. 
+It will also contain all of the project's information.

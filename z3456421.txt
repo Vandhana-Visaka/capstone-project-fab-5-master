@@ -1,0 +1,78 @@
+#Week 1
+
+##04/06/2020
+We have formed a five-people group. 
+Scrum master: Vandhana Visakamurthy
+Developers:
+Rong Zhang z3456421@ad.unsw.edu.au
+Yiligong: z5199285@ad.unsw.edu.au
+Yu Han: z5219071@ad.unsw.edu.au
+Yuehui Chu: z5180907@ad.unsw.edu.au
+We have decided to choose ReadRecommend project. All of us have the general idea about it.
+Plan:
+* Join Jira
+* Read project description carefully
+* Write user story
+
+#Week 2
+
+##13/06/2020
+Discussed the proposal and system achicture
+We have decided the structure of the proposal
+Continued to learn Django development
+
+Next will do:  do research. Collect as much data about the frameworks/technologies. Learn how we plan to implement them in this project. Understand drawbacks of existing systems 
+
+#Week 3
+##17/06/2020
+We have completed half of the proposal.
+I have learnt some knowledge about creating app webpage in Django.
+Next will do, discuss with team members about proposal and first sprint.
+
+##18/06/2020
+We have discussed about novel functionality user stories.
+We have discussed about ER diagram and database schema. I have corrected the relationship between user and books.
+Next will do, finish the proposal and review it.
+
+#Week 4
+##25/06/2020
+We have finished user register, user login user stories.
+We have discussed the whole achitecture will be laid on Django now.
+Nex will do, we will continue to learn Django and create a Book App.
+Vandhanan and Yiligoing will import dataset into the Book.
+
+#Week 5
+##02/07/2020
+We have finished our demo, and decided the retrospective meeting schedule.
+Tomorrow we will discuss what went well, what didn't go well, what will try next.
+We will write the report ASAP.
+
+#Week 6
+##10/07/2020
+I have learnt jQuery+Ajax technique to add a pop-up modal window to let
+user add a book to their collection. However, we have serious problems about
+code integration, website style, and functional requirement achieved methods, 
+which everyone has a different target.
+
+#Week 7
+## 2020/07/16
+We will discuss next sprint in a next meeting.
+We are ahead the track of our project. The next main stage will be recommendation system.
+It can either use branch learning or online learning.
+
+#Week 8
+## 2020/07/26
+We have started the final sprint. We have already assign user story and subtasks to everyone.
+I will do the book read by others recommendation.
+
+#Week 9
+## 2020/08/01
+We have finished all user stories. I have tested all user stories as well, fixed the following issues
+* container size
+* register form clean with invalid form
+* auto jump to main area
+
+#Week 10
+## 2020/08/05
+We have finished all user stories testing and deployment testing. We are going to finish
+the final report and final demo today.
